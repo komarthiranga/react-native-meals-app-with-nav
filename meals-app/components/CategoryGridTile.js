@@ -6,8 +6,11 @@ import {
   Pressable,
   Platform,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native'
 
-const CategoryGridTile = ({ title, color }) => {
+const CategoryGridTile = ({ title, color,id }) => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.gridItems}>
       <Pressable
@@ -16,6 +19,7 @@ const CategoryGridTile = ({ title, color }) => {
           styles.button,
           pressed ? styles.buttonPressed : null,
         ]}
+        onPress={() => navigation.navigate("MealsOverView", {categoryId: id})}
       >
         <SafeAreaView style={[styles.innerContainer, {backgroundColor: color}]}>
           <Text style={styles.title}>{title}</Text>

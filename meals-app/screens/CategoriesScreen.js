@@ -4,7 +4,7 @@ import CategoryGridTile from '../components/CategoryGridTile';
 
 const CategoriesScreen = () => {
 
-    const renderCategoryItem = ({item}) => <CategoryGridTile title={item.title} color={item.color} />
+    const renderCategoryItem = ({item}) => <CategoryGridTile title={item.title} color={item.color} id={item.id} />
 
     return (
         <SafeAreaView>
