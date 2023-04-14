@@ -6,26 +6,22 @@ import {
   StyleSheet,
   Platform,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import MealDetails from "./MealDetails";
 const MealItem = ({ item }) => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.mealItem}>
       <Pressable android_ripple={{color: '#ccc'}} style={({ pressed }) => [
           pressed ? styles.buttonPressed : null,
-        ]}>
+        ]} onPress={ () => navigation.navigate('MealDetails', {mealId: item.id}) }>
         <SafeAreaView style={styles.innerConatiner}>
           <SafeAreaView>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
           </SafeAreaView>
-          <SafeAreaView style={styles.details}>
-            <Text style={styles.detailsItem}> {item.duration}m</Text>
-            <Text style={styles.detailsItem}>
-              {item.complexity.toUpperCase()}{" "}
-            </Text>
-            <Text style={styles.detailsItem}>
-              {item.affordability.toUpperCase()}{" "}
-            </Text>
-          </SafeAreaView>
+          <MealDetails item={item} />
         </SafeAreaView>
       </Pressable>
     </SafeAreaView>
