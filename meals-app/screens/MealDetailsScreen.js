@@ -10,28 +10,37 @@ import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import SubTitle from "../components/MealDetail/SubTitle";
 import List from "../components/MealDetail/List";
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useContext } from 'react';
 import IconButton from "../components/IconButton";
+import FavoritesContext from "../store/context/favorites-context";
 
 const MealDetailsScreen = ({ route, navigation }) => {
+    const { mealId } = route.params;
+    const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+    const {addFavorite, ids, removeFavorite} = useContext(FavoritesContext);
+    const mealIsFavorite = ids.includes(mealId)
 
     const headerButtonPressHandler = () => {
-        console.log('Pressed!!!!')
+        if(mealIsFavorite) {
+          removeFavorite(mealId);
+        } else {
+          addFavorite(mealId);
+        }
     }
 
    useLayoutEffect( () => {
         navigation.setOptions({
             headerRight: () => {
                 return (
-                    <IconButton icon="star" color="white" onPress={headerButtonPressHandler} />
+                    <IconButton icon={ mealIsFavorite ? "star" : "star-outline"} color="white" onPress={headerButtonPressHandler} />
                 )
             }
         })
    }, [navigation, headerButtonPressHandler]);
 
 
-  const { mealId } = route.params;
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
   return (
     <ScrollView style={styles.rootContainer}>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />

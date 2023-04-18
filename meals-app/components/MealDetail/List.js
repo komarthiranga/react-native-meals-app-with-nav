@@ -2,7 +2,7 @@ import { SafeAreaView, Text, StyleSheet, ScrollView } from 'react-native';
 
 const List = ({data}) => {
     return(
-             data.map( (dataItem, index) => <SafeAreaView style={styles.listItem}><Text key={index} style={styles.itemText}>{dataItem}</Text></SafeAreaView> )
+             data.map( (dataItem, index) => <SafeAreaView style={styles.listItem}><Text key={`li-${index}`} style={styles.itemText}>{dataItem}</Text></SafeAreaView> )
     )
 }
 
